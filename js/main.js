@@ -14,11 +14,14 @@ const SOURCE_CARDS = [
 const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg'; 
 
   /*----- state variables -----*/
-let board; // track arrangement of cards, and card status(facedown, faceup, matched)
-let matchAttempts; // number of attempts player has made
-let isWinner; // check win condition
-let gameProgress; // remaining cards
-let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
+// let board; // track arrangement of cards, and card status(facedown, faceup, matched)
+// let matchAttempts; // number of attempts player has made
+// let isWinner; // check win condition
+// let gameProgress; // remaining cards
+// let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
+let cards; // Array of 16 shuffled card objects
+let firstCard; // First card clicked (card object) or null
+
 
   /*----- cached elements  -----*/
 
@@ -27,9 +30,27 @@ let gameState; // current phase , flipping first card, second card, checking mat
 
 
   /*----- functions -----*/
-init() {
-  matchAttempts = 0;
-  isWinner = false; 
+init();
+
+function init() {
+  cards = getShuffledCards();
+  // matchAttempts = 0;
+  // isWinner = false; 
+};
+
+function getShuffledCards() {
+  let tempCards = [];
+  let cards = [];
+  for (let card of SOURCE_CARDS) {
+    tempCards.push(card, card);
+  }
+  while (tempCards.length) {
+    let rndIdx = Math.floor(Math.random() * tempCards.length);
+    let card = tempCards.splice(rndIdx, 1)[0];
+    console.log(card);
+  }
+
+  return cards;
 };
 
 

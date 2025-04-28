@@ -21,12 +21,14 @@ const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg';
 // let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
+let ignoreClicks;
 
 
   /*----- cached elements  -----*/
 
 
   /*----- event listeners -----*/
+document.querySelector('main').addEventListener('click', handleChoice);
 
 
   /*----- functions -----*/
@@ -35,6 +37,7 @@ init();
 function init() {
   cards = getShuffledCards();
   firstCard = null;
+  ignoreClicks = false;
   render();
   // matchAttempts = 0;
   // isWinner = false; 
@@ -65,5 +68,23 @@ function getShuffledCards() {
   return cards;
 };
 
+// Update all impacted state, then call render()
+function handleChoice(event) {
+  const cardIdx = parseInt(event.target.id);
+  if (isNaN(cardIdx) || ignoreClicks) return;
+  const card = cards[cardIdx];
+  if (firstCard) {
+    if (firstCard.img === card.img) { // compares img string since it is two different objects
+      // correct match
+      firstCard.matched = card.matched = true; // sets true to card and first card
+      firstCard = null; // resets firstcard so next selection can be made
+    }
+
+  } else {
+    firstCard = card;
+  }
+  render();
+  // console.log(card); // testing
+};
 
   // Initialize all state, then call render()

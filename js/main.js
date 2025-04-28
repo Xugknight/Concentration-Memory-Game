@@ -50,6 +50,7 @@ function render() {
     imgEl.src = src;
   });
   msgEl.innerHTML = `Failed Matches: ${matchAttempts}`;
+  isWinner();
 };
 
 function getShuffledCards() {
@@ -73,17 +74,31 @@ function handleChoice(event) {
   if (isNaN(cardIdx) || ignoreClicks) return;
   const card = cards[cardIdx];
   if (firstCard) {
+    // if (firstCard.img === card.img) { // faulty, can click on same card to have it change to "true". Players can game system abusing this.
     if (firstCard.img === card.img) { // compares img string since it is two different objects
-      // correct match
+    // correct match
       firstCard.matched = card.matched = true; // sets true to card and first card
     } else {
-      matchAttempts++;
+      ignoreClicks = true; // if card is not matched we set click timeout to x seconds
+      setTimeout(() => { 
+        firstCard = null; // then set firstcard and click timeout back to null/false
+        ignoreClicks = false;
+        render(); // call render to update UI
+      }, 500); // .5 seconds
+      matchAttempts++; // Add to failed attempts counter
     }
     firstCard = null; // resets firstcard so next selection can be made
   } else {
     firstCard = card;
   }
   render();
+};
+
+// Checks if every card in cards array is set to true. If yes, dispaly win message.
+function isWinner() {
+  if (cards.every(card => card.matched)) {
+      msgEl.innerHTML = 'You Win!';
+  }
 };
 
   

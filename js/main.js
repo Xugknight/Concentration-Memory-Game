@@ -15,28 +15,27 @@ const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg';
 
   /*----- state variables -----*/
 // let board; // track arrangement of cards, and card status(facedown, faceup, matched)
-// let matchAttempts; // number of attempts player has made
 // let isWinner; // check win condition
 // let gameProgress; // remaining cards
 // let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
 let ignoreClicks;
+let matchAttempts; // number of attempts player has made
 
 
   /*----- cached elements  -----*/
-
+const msgEl = document.querySelector('h3');
 
   /*----- event listeners -----*/
 document.querySelector('main').addEventListener('click', handleChoice);
 
 
   /*----- functions -----*/
-init();
-
 function init() {
   cards = getShuffledCards();
   firstCard = null;
+  matchAttempts = 0;
   ignoreClicks = false;
   render();
   // matchAttempts = 0;
@@ -50,6 +49,7 @@ function render() {
     // imgEl.src = card.img; // Showing card face for testing.
     imgEl.src = src;
   });
+  msgEl.innerHTML = `Failed Matches: ${matchAttempts}`;
 };
 
 function getShuffledCards() {
@@ -62,7 +62,6 @@ function getShuffledCards() {
     let rndIdx = Math.floor(Math.random() * tempCards.length);
     let card = tempCards.splice(rndIdx, 1)[0];
     cards.push(card);
-    // console.log(card);
   }
 
   return cards;
@@ -77,14 +76,17 @@ function handleChoice(event) {
     if (firstCard.img === card.img) { // compares img string since it is two different objects
       // correct match
       firstCard.matched = card.matched = true; // sets true to card and first card
-      firstCard = null; // resets firstcard so next selection can be made
+    } else {
+      matchAttempts++;
     }
-
+    firstCard = null; // resets firstcard so next selection can be made
   } else {
     firstCard = card;
   }
   render();
-  // console.log(card); // testing
 };
 
-  // Initialize all state, then call render()
+  
+
+// Initialize all state, then call render()
+  init();

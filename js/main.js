@@ -34,8 +34,17 @@ init();
 
 function init() {
   cards = getShuffledCards();
+  firstCard = null;
+  render();
   // matchAttempts = 0;
   // isWinner = false; 
+};
+
+function render() {
+  cards.forEach(function(card, idx) {
+    const imgEl = document.getElementById(idx);
+    imgEl.src = card.img
+  });
 };
 
 function getShuffledCards() {
@@ -47,7 +56,8 @@ function getShuffledCards() {
   while (tempCards.length) {
     let rndIdx = Math.floor(Math.random() * tempCards.length);
     let card = tempCards.splice(rndIdx, 1)[0];
-    console.log(card);
+    cards.push(card);
+    // console.log(card);
   }
 
   return cards;

@@ -20,7 +20,7 @@ const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg';
 // let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
-let ignoreClicks;
+let ignoreClicks; // timeouts the click after guesses
 let matchAttempts; // number of attempts player has made
 
 
@@ -73,26 +73,34 @@ function handleChoice(event) {
   const cardIdx = parseInt(event.target.id);
   if (isNaN(cardIdx) || ignoreClicks) return;
   const card = cards[cardIdx];
+   // if (firstCard.img === card.img) { // faulty, can click on same card to have it change to "true". Players can game system abusing this.
+  if (card.matched || card === firstCard) return; // Prevent clicking the same card
+  // checks if player has clicked firstcard, if firstcard has value then this is secondcard
   if (firstCard) {
-    // if (firstCard.img === card.img) { // faulty, can click on same card to have it change to "true". Players can game system abusing this.
-    if (firstCard.img === card.img) { // compares img string since it is two different objects
-    // correct match
-      firstCard.matched = card.matched = true; // sets true to card and first card
+    // checks if secondcard is same object as first. If true keep value same, if false card.matched set to false.
+    card.matched = card === firstCard ? card.matched : false; 
+    render(); // Show the second card
+    if (firstCard.img === card.img) {
+      // Correct match
+      firstCard.matched = card.matched = true;
+      firstCard = null; // reset first card
     } else {
-      ignoreClicks = true; // if card is not matched we set click timeout to x seconds
-      setTimeout(() => { 
-        firstCard = null; // then set firstcard and click timeout back to null/false
-        ignoreClicks = false;
-        render(); // call render to update UI
-      }, 500); // .5 seconds
-      matchAttempts++; // Add to failed attempts counter
+      // Incorrect match
+      ignoreClicks = true; // Block further clicks
+      setTimeout(() => {
+        firstCard = null; // Reset first card
+        render(); // Flip both cards back
+      }, 500); // 1-second delay
     }
-    firstCard = null; // resets firstcard so next selection can be made
+    // check winner
+    isWinner();
+    matchAttempts++;
   } else {
     firstCard = card;
   }
-  render();
-};
+  render(); // Render updates to the board
+}
+
 
 // Checks if every card in cards array is set to true. If yes, dispaly win message.
 function isWinner() {

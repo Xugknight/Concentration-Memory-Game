@@ -43,7 +43,9 @@ function init() {
 function render() {
   cards.forEach(function(card, idx) {
     const imgEl = document.getElementById(idx);
-    imgEl.src = card.img
+    const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
+    // imgEl.src = card.img; // Showing card face for testing.
+    imgEl.src = src;
   });
 };
 
@@ -51,7 +53,7 @@ function getShuffledCards() {
   let tempCards = [];
   let cards = [];
   for (let card of SOURCE_CARDS) {
-    tempCards.push(card, card);
+    tempCards.push({...card}, {...card}); // {...} using spread operator. Takes properties from card object and spreads them into new objects.
   }
   while (tempCards.length) {
     let rndIdx = Math.floor(Math.random() * tempCards.length);

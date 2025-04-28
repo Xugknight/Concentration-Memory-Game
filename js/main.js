@@ -14,9 +14,11 @@ const SOURCE_CARDS = [
 const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg'; 
 
   /*----- state variables -----*/
-let board;
-let guesses;
-let winner;
+let board; // track arrangement of cards, and card status(facedown, faceup, matched)
+let matchAttempts; // number of attempts player has made
+let isWinner; // check win condition
+let gameProgress; // remaining cards
+let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
 
   /*----- cached elements  -----*/
 
@@ -25,7 +27,10 @@ let winner;
 
 
   /*----- functions -----*/
-
+init() {
+  matchAttempts = 0;
+  isWinner = false; 
+};
 
 
   // Initialize all state, then call render()

@@ -2,14 +2,18 @@
 // Each of the "card" objects will be copied twice,
 // then shuffled and used for the board's cards
 const SOURCE_CARDS = [
-  {img: 'https://i.imgur.com/ZXPKaiN.jpg', matched: false},
-  {img: 'https://i.imgur.com/XMEsZBX.jpg', matched: false},
-  {img: 'https://i.imgur.com/6jX1bMT.jpg', matched: false},
-  {img: 'https://i.imgur.com/yKdqsBv.jpg', matched: false},
-  {img: 'https://i.imgur.com/1BV3HLr.jpg', matched: false},
-  {img: 'https://i.imgur.com/QYmN6Hp.jpg', matched: false},
-  {img: 'https://i.imgur.com/D5pWE05.jpg', matched: false},
-  {img: 'https://i.imgur.com/Ss4Xo3x.jpg', matched: false}
+  {img: 'https://i.imgur.com/0FXcXsP.jpeg', matched: false},
+  {img: 'https://i.imgur.com/Y2IWUda.jpeg', matched: false},
+  {img: 'https://i.imgur.com/30qIWHs.jpeg', matched: false},
+  {img: 'https://i.imgur.com/6FqaEdk.jpeg', matched: false},
+  {img: 'https://i.imgur.com/m2cfZQZ.jpeg', matched: false},
+  {img: 'https://i.imgur.com/jEdx7o9.jpeg', matched: false},
+  {img: 'https://i.imgur.com/MnfkkR7.jpeg', matched: false},
+  {img: 'https://i.imgur.com/akU3BZM.jpeg', matched: false},
+  {img: 'https://i.imgur.com/8oN1YY5.jpeg', matched: false},
+  {img: 'https://i.imgur.com/YAM6N2Y.jpeg', matched: false},
+  {img: 'https://i.imgur.com/6CiCtxJ.jpeg', matched: false},
+  {img: 'https://i.imgur.com/cMsrzQ8.jpeg', matched: false}
 ];
 const CARD_BACK = 'https://i.imgur.com/MNVTu4Z.png';
 
@@ -90,7 +94,7 @@ function handleChoice(event) {
         render(); // call render to update display
       }, 1000); // 1 second(s)
       matchAttempts++; // Add to failed attempts counter
-      if (matchAttempts >= 7) { // checks if our bad matches are at the limit.
+      if (matchAttempts >= 10) { // checks if our bad matches are at the limit.
         gameLoss = true;
       }
     }

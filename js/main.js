@@ -14,10 +14,6 @@ const SOURCE_CARDS = [
 const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg'; 
 
   /*----- state variables -----*/
-// let board; // track arrangement of cards, and card status(facedown, faceup, matched)
-// let isWinner; // check win condition
-// let gameProgress; // remaining cards
-// let gameState; // current phase , flipping first card, second card, checking matches, is game still going.
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
 let ignoreClicks; // timeouts the click after guesses
@@ -112,3 +108,11 @@ function isWinner() {
 
 // Initialize all state, then call render()
   init();
+
+
+/* 
+TODO
+Add lose condition
+maybe copy win condition but check number of attempts and when attempts > set number
+we display a loss message and timeout clicks for everything but reset button?
+*/

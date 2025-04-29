@@ -17,17 +17,19 @@ const SOURCE_CARDS = [
 ];
 const CARD_BACK = 'https://i.imgur.com/MNVTu4Z.png';
 
+
   /*----- state variables -----*/
-let cards; // Array of 16 shuffled card objects
-let firstCard; // First card clicked (card object) or null
-let ignoreClicks; // timeouts the click after guesses
-let matchAttempts; // number of attempts player has made
+let cards; 
+let firstCard; 
+let ignoreClicks; 
+let matchAttempts; 
 let gameLoss; 
 
 
   /*----- cached elements  -----*/
 const msgEl = document.querySelector('h3');
 const resetBtn = document.querySelector('#reset');
+
 
   /*----- event listeners -----*/
 document.querySelector('main').addEventListener('click', handleChoice);
@@ -58,7 +60,7 @@ function getShuffledCards() {
   let tempCards = [];
   let cards = [];
   for (let card of SOURCE_CARDS) {
-    tempCards.push({...card}, {...card}); // {...} using spread operator. Takes properties from card object and spreads them into new objects.
+    tempCards.push({...card}, {...card});
   }
   while (tempCards.length) {
     let rndIdx = Math.floor(Math.random() * tempCards.length);
@@ -73,32 +75,30 @@ function handleChoice(event) {
   const cardIdx = parseInt(event.target.id);
   if (isNaN(cardIdx) || ignoreClicks || gameLoss) return;
   const card = cards[cardIdx];
-  if (firstCard === card) return; // this "should" prevent clicking the same card and having it change to true.
-  
+  if (firstCard === card) return; 
   if (firstCard) {
-      // checks if a firstcard has been selected. if not null then player is choosing secondcard
-      card.flipped = true; // temporarily marks second card as flipped so render will show the secondcard
-      render(); // show both cards
+      card.flipped = true;
+      render();
 
-      if (firstCard.img === card.img) { // compares img string since it is two different objects
+      if (firstCard.img === card.img) {
       // correct match
-      firstCard.matched = card.matched = true; // sets true to card and firstcard
-      firstCard = null; // resets the value of firstcard
-      render(); // update display to show matched cards
+      firstCard.matched = card.matched = true;
+      firstCard = null;
+      render();
       } else {
-      ignoreClicks = true; // if card is not matched we set click timeout to (x) seconds
+      ignoreClicks = true;
       setTimeout(() => { 
-        firstCard.flipped = card.flipped = false; // cards not matching, hide them again.
-        firstCard = null; // then set firstcard and click timeout back to null/false
+        firstCard.flipped = card.flipped = false;
+        firstCard = null;
         ignoreClicks = false;
-        render(); // call render to update display
-      }, 1000); // 1 second(s)
-      matchAttempts++; // Add to failed attempts counter
-      if (matchAttempts >= 12) { // checks if our bad matches are at the limit.
+        render(); 
+      }, 1000);
+      matchAttempts++;
+      if (matchAttempts >= 12) {
         gameLoss = true;
       }
     }
-  } else { // runs if firstcard is null, updating to show the first card selection.
+  } else {
     card.flipped = true;
     firstCard = card;
     render();
@@ -112,7 +112,6 @@ function isWinner() {
       msgEl.innerHTML = 'You Win!';
   }
 };
-
   
 
 // Initialize all state, then call render()

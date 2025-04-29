@@ -92,7 +92,7 @@ function handleChoice(event) {
         firstCard = null;
         ignoreClicks = false;
         render(); 
-      }, 1000);
+      }, 1200);
       matchAttempts++;
       if (matchAttempts >= 12) {
         gameLoss = true;

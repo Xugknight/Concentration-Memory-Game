@@ -10,7 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 30px;
     background-color: #0A0A0A;
     color: #FFC100;
   }
@@ -31,14 +31,14 @@
   
   h3 {
     margin-top: 0;
-    font-size: 22px;
+    font-size: 30px;
     color: #890505;
   }
 
   button {
     margin: 20px;
     padding: 10px 20px;
-    font-size: 20px;
+    font-size: 28px;
     background-color: #DBFCFF;
     border: 2px solid black;
     cursor: pointer;

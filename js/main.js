@@ -50,7 +50,7 @@ function render() {
     const src = (card.matched || card === firstCard || card.flipped) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
-  msgEl.innerHTML = gameLoss ? 'Too many failed attempts, try again' : `Failed Matches: ${matchAttempts}`;
+  msgEl.innerHTML = gameLoss ? 'You Died' : `Failed Matches: ${matchAttempts}`;
   isWinner();
 };
 
@@ -94,7 +94,7 @@ function handleChoice(event) {
         render(); // call render to update display
       }, 1000); // 1 second(s)
       matchAttempts++; // Add to failed attempts counter
-      if (matchAttempts >= 10) { // checks if our bad matches are at the limit.
+      if (matchAttempts >= 12) { // checks if our bad matches are at the limit.
         gameLoss = true;
       }
     }

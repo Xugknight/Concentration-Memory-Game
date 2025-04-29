@@ -26,9 +26,11 @@ let matchAttempts; // number of attempts player has made
 
   /*----- cached elements  -----*/
 const msgEl = document.querySelector('h3');
+const resetBtn = document.querySelector('#reset');
 
   /*----- event listeners -----*/
 document.querySelector('main').addEventListener('click', handleChoice);
+resetBtn.addEventListener('click', init);
 
 
   /*----- functions -----*/

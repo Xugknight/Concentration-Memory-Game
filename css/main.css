@@ -22,8 +22,18 @@
   img {
     width: 100%;
     border-radius: 3vmin;
+    cursor: pointer;
   }
   
   h3 {
     margin-top: 0;
+  }
+
+  button {
+    margin: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    background-color: #DBFCFF;
+    border: 2px solid black;
+    cursor: pointer;
   }

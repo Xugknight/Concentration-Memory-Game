@@ -82,13 +82,13 @@ function handleChoice(event) {
       firstCard = null; // resets the value of firstcard
       render(); // update display to show matched cards
       } else {
-      ignoreClicks = true; // if card is not matched we set click timeout to x seconds
+      ignoreClicks = true; // if card is not matched we set click timeout to (x) seconds
       setTimeout(() => { 
         firstCard.flipped = card.flipped = false; // cards not matching, hide them again.
         firstCard = null; // then set firstcard and click timeout back to null/false
         ignoreClicks = false;
         render(); // call render to update display
-      }, 500); // .5 seconds
+      }, 1000); // 1 second(s)
       matchAttempts++; // Add to failed attempts counter
     }
   } else { // runs if firstcard is null, updating to show the first card selection.

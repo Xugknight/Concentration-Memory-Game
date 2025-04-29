@@ -38,15 +38,12 @@ function init() {
   matchAttempts = 0;
   ignoreClicks = false;
   render();
-  // matchAttempts = 0;
-  // isWinner = false; 
 };
 
 function render() {
   cards.forEach(function(card, idx) {
     const imgEl = document.getElementById(idx);
-    const src = (card.matched || card === firstCard) ? card.img : CARD_BACK;
-    // imgEl.src = card.img; // Showing card face for testing.
+    const src = (card.matched || card === firstCard || card.flipped) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
   msgEl.innerHTML = `Failed Matches: ${matchAttempts}`;
@@ -64,7 +61,6 @@ function getShuffledCards() {
     let card = tempCards.splice(rndIdx, 1)[0];
     cards.push(card);
   }
-
   return cards;
 };
 
@@ -73,27 +69,35 @@ function handleChoice(event) {
   const cardIdx = parseInt(event.target.id);
   if (isNaN(cardIdx) || ignoreClicks) return;
   const card = cards[cardIdx];
+  if (firstCard === card) return; // this "should" prevent clicking the same card and having it change to true.
+  
   if (firstCard) {
-    // if (firstCard.img === card.img) { // faulty, can click on same card to have it change to "true". Players can game system abusing this.
-    if (firstCard.img === card.img) { // compares img string since it is two different objects
-    // correct match
-      firstCard.matched = card.matched = true; // sets true to card and first card
-    } else {
+      // checks if a firstcard has been selected. if not null then player is choosing secondcard
+      card.flipped = true; // temporarily marks second card as flipped so render will show the secondcard
+      render(); // show both cards
+
+      if (firstCard.img === card.img) { // compares img string since it is two different objects
+      // correct match
+      firstCard.matched = card.matched = true; // sets true to card and firstcard
+      firstCard = null; // resets the value of firstcard
+      render(); // update display to show matched cards
+      } else {
       ignoreClicks = true; // if card is not matched we set click timeout to x seconds
       setTimeout(() => { 
+        firstCard.flipped = card.flipped = false; // cards not matching, hide them again.
         firstCard = null; // then set firstcard and click timeout back to null/false
         ignoreClicks = false;
-        render(); // call render to update UI
+        render(); // call render to update display
       }, 500); // .5 seconds
       matchAttempts++; // Add to failed attempts counter
     }
-    firstCard = null; // resets firstcard so next selection can be made
-  } else {
+  } else { // runs if firstcard is null, updating to show the first card selection.
+    card.flipped = true;
     firstCard = card;
+    render();
   }
-  render();
 };
-//TODO Still not working. Revisit and fix.
+
 
 // Checks if every card in cards array is set to true. If yes, dispaly win message.
 function isWinner() {

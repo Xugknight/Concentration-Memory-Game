@@ -11,13 +11,14 @@ const SOURCE_CARDS = [
   {img: 'https://i.imgur.com/D5pWE05.jpg', matched: false},
   {img: 'https://i.imgur.com/Ss4Xo3x.jpg', matched: false}
 ];
-const CARD_BACK = 'https://i.imgur.com/WoEmI2M.jpg'; 
+const CARD_BACK = 'https://i.imgur.com/MNVTu4Z.png';
 
   /*----- state variables -----*/
 let cards; // Array of 16 shuffled card objects
 let firstCard; // First card clicked (card object) or null
 let ignoreClicks; // timeouts the click after guesses
 let matchAttempts; // number of attempts player has made
+let gameLoss; 
 
 
   /*----- cached elements  -----*/
@@ -35,6 +36,7 @@ function init() {
   firstCard = null;
   matchAttempts = 0;
   ignoreClicks = false;
+  gameLoss = false;
   render();
 };
 
@@ -44,7 +46,7 @@ function render() {
     const src = (card.matched || card === firstCard || card.flipped) ? card.img : CARD_BACK;
     imgEl.src = src;
   });
-  msgEl.innerHTML = `Failed Matches: ${matchAttempts}`;
+  msgEl.innerHTML = gameLoss ? 'Too many failed attempts, try again' : `Failed Matches: ${matchAttempts}`;
   isWinner();
 };
 
@@ -65,7 +67,7 @@ function getShuffledCards() {
 // Update all impacted state, then call render()
 function handleChoice(event) {
   const cardIdx = parseInt(event.target.id);
-  if (isNaN(cardIdx) || ignoreClicks) return;
+  if (isNaN(cardIdx) || ignoreClicks || gameLoss) return;
   const card = cards[cardIdx];
   if (firstCard === card) return; // this "should" prevent clicking the same card and having it change to true.
   
@@ -88,6 +90,9 @@ function handleChoice(event) {
         render(); // call render to update display
       }, 1000); // 1 second(s)
       matchAttempts++; // Add to failed attempts counter
+      if (matchAttempts >= 7) { // checks if our bad matches are at the limit.
+        gameLoss = true;
+      }
     }
   } else { // runs if firstcard is null, updating to show the first card selection.
     card.flipped = true;
@@ -97,7 +102,7 @@ function handleChoice(event) {
 };
 
 
-// Checks if every card in cards array is set to true. If yes, dispaly win message.
+// Checks if every card in cards array is set to true. If yes, display win message.
 function isWinner() {
   if (cards.every(card => card.matched)) {
       msgEl.innerHTML = 'You Win!';
@@ -108,11 +113,3 @@ function isWinner() {
 
 // Initialize all state, then call render()
   init();
-
-
-/* 
-TODO
-Add lose condition
-maybe copy win condition but check number of attempts and when attempts > set number
-we display a loss message and timeout clicks for everything but reset button?
-*/

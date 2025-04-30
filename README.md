@@ -16,6 +16,7 @@ The player's goal is to match all card pairs to win.
 - Google
 - Youtube
 - AI to explain some concepts
+- Animate.style
 
 # Getting Started
 

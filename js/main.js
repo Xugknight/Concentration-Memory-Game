@@ -1,6 +1,4 @@
   /*----- constants -----*/
-// Each of the "card" objects will be copied twice,
-// then shuffled and used for the board's cards
 const SOURCE_CARDS = [
   {img: 'https://i.imgur.com/0FXcXsP.jpeg', matched: false},
   {img: 'https://i.imgur.com/Y2IWUda.jpeg', matched: false},
@@ -105,8 +103,6 @@ function handleChoice(event) {
   }
 };
 
-
-// Checks if every card in cards array is set to true. If yes, display win message.
 function isWinner() {
   if (cards.every(card => card.matched)) {
       msgEl.innerHTML = 'You Win!';

@@ -19,10 +19,8 @@ The player's goal is to match all card pairs to win.
 
 # Getting Started
 
-[Click to View Project Planning](your Trello url here)
-[Click to Play Connect Four!](your deployment url here)
+[Click to Play Elden Ring Memory!](https://xugknight.github.io/Concentration-Memory-Game/)
 
 # Next Steps
 
-- Future enhancement one...
-- Future enhancement two... 
+- Start with less squares and slowly scale up difficulty level for player

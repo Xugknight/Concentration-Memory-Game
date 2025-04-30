@@ -1,7 +1,7 @@
   /*----- constants -----*/
 const SOURCE_CARDS = [
-  {img: 'https://i.imgur.com/0FXcXsP.jpeg', matched: false},
   {img: 'https://i.imgur.com/Y2IWUda.jpeg', matched: false},
+  {img: 'https://i.imgur.com/0FXcXsP.jpeg', matched: false},
   {img: 'https://i.imgur.com/30qIWHs.jpeg', matched: false},
   {img: 'https://i.imgur.com/6FqaEdk.jpeg', matched: false},
   {img: 'https://i.imgur.com/m2cfZQZ.jpeg', matched: false},

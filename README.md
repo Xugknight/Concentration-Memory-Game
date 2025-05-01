@@ -25,3 +25,4 @@ The player's goal is to match all card pairs to win.
 # Next Steps
 
 - Start with less squares and slowly scale up difficulty level for player
+- Leaderboard to track multiple players score, possibly.

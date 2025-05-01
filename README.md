@@ -13,8 +13,6 @@ The player's goal is to match all card pairs to win.
 - HTML
 - CSS
 - Reddit for card images
-- Google
-- Youtube
 - AI to explain some concepts
 - Animate.style
 

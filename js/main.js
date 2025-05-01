@@ -92,7 +92,7 @@ function handleChoice(event) {
         render();
       }, 1200);
       matchAttempts++;
-      if (matchAttempts >= 12) {
+      if (matchAttempts >= 13) {
         gameLoss = true;
       }
     }
